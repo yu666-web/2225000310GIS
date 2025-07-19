@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>注册</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 300px;
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .hint {
+            font-size: 12px;
+            color: #666;
+        }
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .button {
+            padding: 8px 16px;
+            font-size: 14px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+        .link {
+            display: block;
+            margin-top: 10px;
+            font-size: 14px;
+            color: #007bff;
+            text-decoration: none;
+            text-align: center;
+        }
+        .link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 style="text-align: center;">注册</h1>
+        <form id="registerForm">
+            <div class="form-group">
+                <label for="username">用户名:</label>
+                <input type="text" id="username" name="username" required minlength="6" maxlength="25">
+                <span class="hint">(可使用英文、数字和特殊符号，长度为6-25个字符)</span>
+            </div>
+            <div class="form-group">
+                <label for="email">邮箱:</label>
+                <input type="email" id="email" name="email" required>
+                <span class="hint">(请输入有效的邮箱地址)</span>
+            </div>
+            <div class="form-group">
+                <label for="password">密码:</label>
+                <input type="password" id="password" name="password" required minlength="6" maxlength="30">
+                <span class="hint">(可使用英文、数字和特殊符号，长度为6-30个字符)</span>
+            </div>
+            <div class="button-container">
+                <button type="submit" class="button">注册</button>
+            </div>
+        </form>
+        <a href="login.html" class="link">返回登录</a>
+    </div>
+
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            // 简单验证
+            if (username.length >= 6 && username.length <= 25 &&
+                password.length >= 6 && password.length <= 30 &&
+                /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                
+                // 将用户信息存储到localStorage
+                const userInfo = {
+                    username: username,
+                    email: email,
+                    password: password
+                };
+                localStorage.setItem('registeredUser', JSON.stringify(userInfo));
+
+                alert('注册成功！');
+                window.location.href = 'login.html';
+            } else {
+                alert('请检查输入信息是否正确！');
+            }
+        });
+    </script>
+</body>
+</html>
